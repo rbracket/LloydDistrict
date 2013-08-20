@@ -1,6 +1,7 @@
 // Start here
 var apiKey = "AjqLfgr5dNzp2kVrdzttXeg9xj1cE5JTS61rnR-oBujjpTGyABaw4pEg31CdrXyx";  // Katie's Bing API key.
 var cartodbUrl = "http://bracket.cartodb.com/api/v2/sql"; //Katie's Cartodb Account
+var cartoDBkey = "612cfbb8eb5240dc9e3ef988a61c5b0c9b733765";
 
 var map;
 var i_map;
@@ -10,7 +11,7 @@ var sm = new OpenLayers.Projection("EPSG:900913");
 var geoJSONparser = new OpenLayers.Format.GeoJSON({ignoreExtraDims: true});
 
 var intersectionStyleMap = new OpenLayers.StyleMap({pointRadius: 7});
-var intersectionLookup = {"y": {fillColor: "orange"},"n": {fillColor: "blue"}};
+var intersectionLookup = {"y": {fillColor: "orange", graphicName: "triangle"},"n": {fillColor: "blue"}};
 intersectionStyleMap.addUniqueValueRules("default", "evaluated", intersectionLookup); //evaluated is attribute of intersections
 
 var rampStyleMap = new OpenLayers.StyleMap({display: "none"});
@@ -62,7 +63,7 @@ function initAreaMap() {
         projection: wgs,
         strategies: [new OpenLayers.Strategy.BBOX(),areaMapStrategy],
         protocol: new OpenLayers.Protocol.Script({
-			url: "http://scottparker.cartodb.com/api/v2/sql",
+			url: "http://bracket.cartodb.com/api/v2/sql",
             params: {q: "select * from intersections", format: "geojson"},
             format: geoJSONparser,
 			callbackKey: "callback"

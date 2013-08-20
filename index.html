@@ -2,7 +2,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
-        <title>Oregon Walks GIS Jam Inventory App</title>
+        <title>Lloyd District Curb Ramp Survey</title>
         <meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;" /> <!--meta name="viewport" content="initial-scale=1.0, user-scalable=no" /-->
         <meta name="apple-mobile-web-app-capable" content="yes" />
         <meta name="description" content="An app for use by the Oregon Walks GIS Jam group and volunteers for a curb ramp inventory in Portland, OR."/>
@@ -50,7 +50,7 @@
             <table width="100%">
               <tr>
                 <td><a href="#" data-role="button" id="same">all like last</a></td>
-                <td><a href="#" data-role="button" id="clear">clear</a></td>               
+                <td><a href="#" data-role="button" id="clear">clear</a></td>
                 <td><a href="#" data-role="button" id="sortOf">comment</a></td>
               </tr>
             </table>
@@ -59,7 +59,7 @@
                 <td><a href="#mappage" data-role="button" id="save">save</a></td>
                 <td><a href="#mappage" data-role="button" id="doNothing">do nothing</a></td>
               </tr>
-            </table>              
+            </table>
           </div>
         </div>
       </body>
@@ -79,7 +79,7 @@
 
             //put together the query
             var query = "q=UPDATE corners SET evaluated = 'y', rramp = '"+rRamp+"', lramp = '"+lRamp+"', texture = '"+texture+"', flags = '"+flags+"' where id = '"+id+"'&api_key=df65312f62568527b7750a1266233be8a3d6c56c";
-            
+
             //go back to the main page
             window.location.replace(window.location.href.split("#")[0] + "#mappage");
             return;
@@ -100,7 +100,7 @@
             <a href="#mappage" data-role="button" data-icon="back" data-theme="a">Go back</a>
           </div>
         </div>-->
-      
+
 
             <!--old popup form
             <div display="inline" data-theme="d" data-role="header">
@@ -108,7 +108,7 @@
             </div>
             <div data-theme="c" data-role="content">
               <div style="text-align:center">
-                <h3>Corner #<div id="cornerID" style="display: inline"></div> - 
+                <h3>Corner #<div id="cornerID" style="display: inline"></div> -
                   <div id="direction" style="display: inline"></div> corner of <div id="streetR" style="display: inline"></div> and <div id="streetL" style="display: inline"></div>
                 </h3>
               </div>
@@ -157,5 +157,3 @@
             </ul>
           </div>
         </div-->
-
-
