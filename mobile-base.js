@@ -1,5 +1,6 @@
 // Start here
-var apiKey = "AjqLfgr5dNzp2kVrdzttXeg9xj1cE5JTS61rnR-oBujjpTGyABaw4pEg31CdrXyx";  // Katie's Bing API key. 
+var apiKey = "AjqLfgr5dNzp2kVrdzttXeg9xj1cE5JTS61rnR-oBujjpTGyABaw4pEg31CdrXyx";  // Katie's Bing API key.
+var cartodbUrl = "http://bracket.cartodb.com/api/v2/sql"; //Katie's Cartodb Account
 
 var map;
 var i_map;
@@ -8,7 +9,7 @@ var wgs = new OpenLayers.Projection("EPSG:4326");
 var sm = new OpenLayers.Projection("EPSG:900913");
 var geoJSONparser = new OpenLayers.Format.GeoJSON({ignoreExtraDims: true});
 
-var intersectionStyleMap = new OpenLayers.StyleMap({pointRadius: 7}); 
+var intersectionStyleMap = new OpenLayers.StyleMap({pointRadius: 7});
 var intersectionLookup = {"y": {fillColor: "orange"},"n": {fillColor: "blue"}};
 intersectionStyleMap.addUniqueValueRules("default", "evaluated", intersectionLookup); //evaluated is attribute of intersections
 
@@ -27,7 +28,8 @@ var detailMapStrategy;
 var hiLiteMapStrategy;
 var detailProtocol;
 
-var intersectionID; 
+var intersectionID;
+
 var currentRamp;
 var corners;
 var hiLite;
@@ -77,7 +79,7 @@ function initAreaMap() {
 				detailMapStrategy.refresh({force: true});
 			};
 			this.unselectAll();
-			jQuery.mobile.changePage("#intersectionpage"); 
+			jQuery.mobile.changePage("#intersectionpage");
         }
 	});
 
@@ -130,7 +132,7 @@ function initDetailMap() {
         projection: wgs,
 		strategies: [new OpenLayers.Strategy.Fixed(),detailMapStrategy],
 		protocol: new OpenLayers.Protocol.Script({
-			url: "http://scottparker.cartodb.com/api/v2/sql",
+			url: cartodbUrl,
 			params: {q: "select * from ramps where nodeid = "+intersectionID+ " order by bearing asc, down_ramp asc", format: "geojson"},
 			format: geoJSONparser,
 			callbackKey: "callback"
@@ -163,7 +165,7 @@ function initDetailMap() {
 			}
 		}
     });
-	
+
     i_map = new OpenLayers.Map({
         div: "i_map",
         theme: null,

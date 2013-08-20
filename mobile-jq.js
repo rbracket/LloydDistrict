@@ -49,19 +49,19 @@ jQuery(document).ready(function() {
 		var query;
 		for (f in rampAttrs.features) {
 			attr = rampAttrs.features[f].attributes;
-			query = "q=UPDATE ramps SET state = '"+attr.state+"' where nodeid = "+intersectionID+" AND bearing = "+attr.bearing+" AND down_ramp = '"+attr.down_ramp+"' &api_key=612cfbb8eb5240dc9e3ef988a61c5b0c9b733765";
-			jQuery.post("http://scottparker.cartodb.com/api/v2/sql", query);
+			query = "q=UPDATE ramps SET state = '"+attr.state+"' where nodeid = "+intersectionID+" AND bearing = "+attr.bearing+" AND down_ramp = '"+attr.down_ramp+"' &api_key=d17d09d66ff153c94bb8d2685a6ffb62d4faeb3a";
+			jQuery.post("cartodbUrl", query);
 			if (attr.state != "none") {allNone = "y"};
 		};
-		query = "q=UPDATE intersections SET evaluated = '"+allNone+"' where node_id = "+intersectionID+"&api_key=612cfbb8eb5240dc9e3ef988a61c5b0c9b733765";
-	    jQuery.post("http://scottparker.cartodb.com/api/v2/sql", query, function(data) {areaMapStrategy.refresh({force:true});});
+		query = "q=UPDATE intersections SET evaluated = '"+allNone+"' where node_id = "+intersectionID+"&api_key=d17d09d66ff153c94bb8d2685a6ffb62d4faeb3a";
+	    jQuery.post("cartodbUrl", query, function(data) {areaMapStrategy.refresh({force:true});});
 	});
 });
 
 
 
 
-   
+
   /*  jQuery('#popup').live('pageshow',function(event, ui){
         var cur_intID = '';
         for (var attr in selectedFeature.attributes){
@@ -73,7 +73,7 @@ jQuery(document).ready(function() {
 
         //put the query together to get info from the corners table in CartoDB
 		var stNmQuery = "q=SELECT cw_street, ccw_street from corners where nodeid = "+cur_intID+" limit 1";
-		var url = "http://scottparker.cartodb.com/api/v2/sql?"+stNmQuery;
+		var url = "cartodbUrl"+stNmQuery;
 
         //request & parse the json
         jQuery.getJSON(url, function (data) {
@@ -107,7 +107,7 @@ jQuery(document).ready(function() {
         addLayerToList(this);
     });
     jQuery('#layerslist').listview('refresh');
-    
+
     map.events.register("addlayer", this, function(e) {
         addLayerToList(e.layer);
     });
