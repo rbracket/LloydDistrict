@@ -1,6 +1,6 @@
 // Start here
 var apiKey = "AgQjrXIE9CdYspY6xDjYHhAlbPODFqfQdzmhnT2Ny2l5bpNvHC-0QdJFR-V-eZ6w";  // Katie's Bing API key. Please get your own at http://bingmapsportal.com/ and use that instead.
-var cartoDBkey = "612cfbb8eb5240dc9e3ef988a61c5b0c9b733765";
+var cartoDBkey = "d17d09d66ff153c94bb8d2685a6ffb62d4faeb3a";
 var buttonsHeight;
 var i_mapArea;
 
@@ -11,7 +11,7 @@ var wgs = new OpenLayers.Projection("EPSG:4326");
 var sm = new OpenLayers.Projection("EPSG:900913");
 var geoJSONparser = new OpenLayers.Format.GeoJSON({ignoreExtraDims: true});
 
-var intersectionStyleMap = new OpenLayers.StyleMap({pointRadius: 7}); 
+var intersectionStyleMap = new OpenLayers.StyleMap({pointRadius: 7});
 var intersectionLookup = {"y": {fillColor: "orange", graphicName: "triangle"},"n": {fillColor: "blue"}};
 intersectionStyleMap.addUniqueValueRules("default", "evaluated", intersectionLookup); //evaluated is attribute of intersections
 
@@ -60,7 +60,7 @@ function initAreaMap() {
         projection: wgs,
         strategies: [new OpenLayers.Strategy.BBOX(), areaMapStrategy],
         protocol: new OpenLayers.Protocol.Script({
-			url: "http://scottparker.cartodb.com/api/v2/sql",
+			url: "http://bracket.cartodb.com/api/v2/sql",
             params: {q: "select * from intersections", format: "geojson"},
             format: geoJSONparser,
 			callbackKey: "callback"
@@ -121,7 +121,7 @@ function initDetailMap() {
         projection: wgs,
 		strategies: [new OpenLayers.Strategy.Fixed(), detailMapStrategy],
 		protocol: new OpenLayers.Protocol.Script({
-			url: "http://scottparker.cartodb.com/api/v2/sql",
+			url: "http://bracket.cartodb.com/api/v2/sql",
 			params: {q: "select * from ramps where nodeid = "+intersectionID+ " order by bearing asc, down_ramp asc", format: "geojson"},
 			format: geoJSONparser,
 			callbackKey: "callback"
@@ -154,7 +154,7 @@ function initDetailMap() {
 			}
 		}
     });
-	
+
     i_map = new OpenLayers.Map({
         div: "i_map",
         theme: null,
@@ -191,7 +191,7 @@ var updateNotes = function(){
 	for (var j=1; j<intersectionNoteChoiceCount; j++){intersectionNotes[j] = false;};
 	var query = "q=SELECT * from comments where associd = "+intersectionID+ " AND association = 'I' &api_key="+cartoDBkey;
 	var noteText;
-	jQuery.getJSON("http://scottparker.cartodb.com/api/v2/sql", query, function(notes){
+	jQuery.getJSON("http://bracket.cartodb.com/api/v2/sql", query, function(notes){
 		for (var i=0; i<notes.total_rows; i++) {
 			noteText = notes.rows[i].text;
 			jQuery("#intersectionNoteChoices option").each(function(j){
@@ -210,7 +210,7 @@ var updateRampNotes = function(){
 	for (var j=1; j<rampNoteChoiceCount; j++){intersectionNotes[j] = false;};
 	var query = "q=SELECT * from comments where associd = "+rampID+ " AND association = 'R' &api_key="+cartoDBkey;
 	var noteText;
-	jQuery.getJSON("http://scottparker.cartodb.com/api/v2/sql", query, function(notes){
+	jQuery.getJSON("http://bracket.cartodb.com/api/v2/sql", query, function(notes){
 		for (var i=0; i<notes.total_rows; i++) {
 			noteText = notes.rows[i].text;
 			if (noteAssoc = "R") {

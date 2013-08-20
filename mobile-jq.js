@@ -65,33 +65,33 @@ jQuery(document).ready(function() {
 		for (f in rampAttrs.features) {
 			attr = rampAttrs.features[f].attributes;
 			query = "q=UPDATE ramps SET state = '"+attr.state+"' WHERE nodeid = "+intersectionID+" AND bearing = "+attr.bearing+" AND down_ramp = '"+attr.down_ramp+"' &api_key="+cartoDBkey;
-			jQuery.post("http://scottparker.cartodb.com/api/v2/sql", query);
+			jQuery.post("http://bracket.cartodb.com/api/v2/sql", query);
 			if (attr.state != "none") {allNone = "y"};
 		};
 		query = "q=UPDATE intersections SET evaluated = '"+allNone+"' WHERE node_id = "+intersectionID+"&api_key="+cartoDBkey;
-	    jQuery.post("http://scottparker.cartodb.com/api/v2/sql", query, function(data) {areaMapStrategy.refresh({force:true});});
+	    jQuery.post("http://bracket.cartodb.com/api/v2/sql", query, function(data) {areaMapStrategy.refresh({force:true});});
 
 		var selected;
 		jQuery("#intersectionNoteChoices option").each(function(j){
 			selected = jQuery(this).prop("selected");
 			if (selected && !intersectionNotes[j]) {
 				query = "q=INSERT INTO comments (association, associd, text) VALUES ('I', "+intersectionID+", '"+jQuery(this).val()+"') &api_key="+cartoDBkey;
-				jQuery.post("http://scottparker.cartodb.com/api/v2/sql", query);
+				jQuery.post("http://bracket.cartodb.com/api/v2/sql", query);
 			};
 			if (!selected && intersectionNotes[j]) {
 				query = "q=DELETE FROM comments WHERE association = 'I' AND associd = "+intersectionID+" AND text = '"+jQuery(this).val()+"' &api_key="+cartoDBkey;
-				jQuery.post("http://scottparker.cartodb.com/api/v2/sql", query);
+				jQuery.post("http://bracket.cartodb.com/api/v2/sql", query);
 			};
 		});
 		jQuery("#rampNoteChoices option").each(function(j){
 			selected = jQuery(this).prop("selected");
 			if (selected && !rampNotes[j]) {
 				query = "q=INSERT INTO comments (association, associd, text) VALUES ('R', "+rampID+", '"+jQuery(this).val()+"') &api_key="+cartoDBkey;
-				jQuery.post("http://scottparker.cartodb.com/api/v2/sql", query);
+				jQuery.post("http://bracket.cartodb.com/api/v2/sql", query);
 			};
 			if (!selected && rampNotes[j]) {
 				query = "q=DELETE FROM comments WHERE association = 'R' AND associd = "+rampID+" AND text = '"+jQuery(this).val()+"' &api_key="+cartoDBkey;
-				jQuery.post("http://scottparker.cartodb.com/api/v2/sql", query);
+				jQuery.post("http://bracket.cartodb.com/api/v2/sql", query);
 			};
 		});
 	});
@@ -101,7 +101,7 @@ jQuery(document).ready(function() {
 
 
 
-   
+
   /*  jQuery('#popup').live('pageshow',function(event, ui){
         var cur_intID = '';
         for (var attr in selectedFeature.attributes){
@@ -113,7 +113,7 @@ jQuery(document).ready(function() {
 
         //put the query together to get info from the corners table in CartoDB
 		var stNmQuery = "q=SELECT cw_street, ccw_street from corners where nodeid = "+cur_intID+" limit 1";
-		var url = "http://scottparker.cartodb.com/api/v2/sql?"+stNmQuery;
+		var url = "http://bracket.cartodb.com/api/v2/sql?"+stNmQuery;
 
         //request & parse the json
         jQuery.getJSON(url, function (data) {
@@ -147,7 +147,7 @@ jQuery(document).ready(function() {
         addLayerToList(this);
     });
     jQuery('#layerslist').listview('refresh');
-    
+
     map.events.register("addlayer", this, function(e) {
         addLayerToList(e.layer);
     });

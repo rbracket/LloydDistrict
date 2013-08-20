@@ -2,7 +2,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
-        <title>Oregon Walks GIS Jam Inventory App</title>
+        <title>Lloyd District Curb Ramps</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0;" />
         <meta name="apple-mobile-web-app-capable" content="yes" />
         <meta name="description" content="An app for use by the Oregon Walks GIS Jam group and volunteers for a curb ramp inventory in Portland, OR."/>
@@ -42,7 +42,7 @@
               </tr></table>
               <table width="100%"><tr>
                 <td><a id="same" href="#" data-role="button" data-mini="true">all like last</a></td>
-                <td><a id="clear" href="#" data-role="button" data-mini="true">clear</a></td>               
+                <td><a id="clear" href="#" data-role="button" data-mini="true">clear</a></td>
                 <td><select id="intersectionNoteChoices" data-native-menu="false" multiple="multiple" data-mini="true">
                   <option value="add_notes" data-placeholder="true">add notes:</option>
                   <option value="confusing">confusing intersection</option>
@@ -67,7 +67,7 @@
         </select>
         <a id="close" href="#intersectionpage" data-role="button" data-mini="true">close</a>
       </div>
-      
+
       </body>
 </html>
 
@@ -85,7 +85,7 @@
 
             //put together the query
             var query = "q=UPDATE corners SET evaluated = 'y', rramp = '"+rRamp+"', lramp = '"+lRamp+"', texture = '"+texture+"', flags = '"+flags+"' where id = '"+id+"'&api_key=df65312f62568527b7750a1266233be8a3d6c56c";
-            
+
             //go back to the main page
             window.location.replace(window.location.href.split("#")[0] + "#mappage");
             return;
@@ -110,7 +110,7 @@
             </div>
             <div data-theme="c" data-role="content">
               <div style="text-align:center">
-                <h3>Corner #<div id="cornerID" style="display: inline"></div> - 
+                <h3>Corner #<div id="cornerID" style="display: inline"></div> -
                   <div id="direction" style="display: inline"></div> corner of <div id="streetR" style="display: inline"></div> and <div id="streetL" style="display: inline"></div>
                 </h3>
               </div>
