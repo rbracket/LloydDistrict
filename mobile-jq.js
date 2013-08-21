@@ -26,8 +26,8 @@ jQuery(document).ready(function() {
 		fromRampNotes = false;
 	});
 
-	jQuery("#yes").click(function() {
-		rampAttrs.features[currentRamp].attributes.state = "yes"; rampAttrs.drawFeature(rampAttrs.features[currentRamp]);
+	jQuery("#percent").click(function() {
+		rampAttrs.features[currentRamp].attributes.state = "5"; rampAttrs.drawFeature(rampAttrs.features[currentRamp]);
 		moveCW();
 	});
 	jQuery("#sortOf").click(function() {
@@ -71,8 +71,8 @@ jQuery(document).ready(function() {
 		query = "q=UPDATE intersections SET evaluated = '"+allNone+"' WHERE node_id = "+intersectionID+"&api_key="+cartoDBkey;
 	    jQuery.post("http://bracket.cartodb.com/api/v2/sql", query, function(data) {areaMapStrategy.refresh({force:true});});
 
-        //add time info
-        query = "q=UPDATE ramps SET hour_min= 'now()' WHERE node_id = "+intersectionID+"&api_key="+cartoDBkey;
+        /* add time saved as hour_min in in*/
+        query = "q=UPDATE intersections SET hour_min = 'now()5' WHERE node_id = "+intersectionID+"&api_key="+cartoDBkey;
         jQuery.post("http://bracket.cartodb.com/api/v2/sql", query, function(data) {areaMapStrategy.refresh({force:true});});
 
 
