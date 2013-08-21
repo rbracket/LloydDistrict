@@ -71,6 +71,12 @@ jQuery(document).ready(function() {
 		query = "q=UPDATE intersections SET evaluated = '"+allNone+"' WHERE node_id = "+intersectionID+"&api_key="+cartoDBkey;
 	    jQuery.post("http://bracket.cartodb.com/api/v2/sql", query, function(data) {areaMapStrategy.refresh({force:true});});
 
+        //add time info
+        query = "q=UPDATE ramps SET hour_min= 'now()' WHERE node_id = "+intersectionID+"&api_key="+cartoDBkey;
+        jQuery.post("http://bracket.cartodb.com/api/v2/sql", query, function(data) {areaMapStrategy.refresh({force:true});});
+
+
+
 		var selected;
 		jQuery("#intersectionNoteChoices option").each(function(j){
 			selected = jQuery(this).prop("selected");
