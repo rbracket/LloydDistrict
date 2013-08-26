@@ -258,3 +258,4 @@ var updateRampNotes = function(){
 	else {
 		initAreaMap();
 	}; */
+

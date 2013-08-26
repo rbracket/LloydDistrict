@@ -1,3 +1,8 @@
+table
+{
+width:100%;
+}
+
 html ,
 #mappage, #mappage .ui-content, #map {
     width: 100%;

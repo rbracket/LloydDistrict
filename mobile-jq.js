@@ -26,8 +26,8 @@ jQuery(document).ready(function() {
 		fromRampNotes = false;
 	});
 
-	jQuery("#percent").click(function() {
-		rampAttrs.features[currentRamp].attributes.state = "5"; rampAttrs.drawFeature(rampAttrs.features[currentRamp]);
+	jQuery("#yes").click(function() {
+		rampAttrs.features[currentRamp].attributes.state = "yes"; rampAttrs.drawFeature(rampAttrs.features[currentRamp]);
 		moveCW();
 	});
 	jQuery("#sortOf").click(function() {
@@ -77,7 +77,8 @@ jQuery(document).ready(function() {
 
 
 
-		var selected;
+		var selected;  /* what does this do?*/
+
 		jQuery("#intersectionNoteChoices option").each(function(j){
 			selected = jQuery(this).prop("selected");
 			if (selected && !intersectionNotes[j]) {
