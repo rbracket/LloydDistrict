@@ -77,7 +77,7 @@ jQuery(document).ready(function() {
 
 
 
-		var selected;  /* what does this do?*/
+		var selected;  /* declaration, outside of function */
 
 		jQuery("#intersectionNoteChoices option").each(function(j){
 			selected = jQuery(this).prop("selected");
