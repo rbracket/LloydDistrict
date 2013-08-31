@@ -72,7 +72,7 @@ jQuery(document).ready(function() {
 	    jQuery.post("http://bracket.cartodb.com/api/v2/sql", query, function(data) {areaMapStrategy.refresh({force:true});});
 
         /* add time saved as hour_min in in*/
-        query = "q=UPDATE intersections SET hour = extract( hour from current_time) WHERE node_id = "+intersectionID+"&api_key="+cartoDBkey;
+        query = "q=UPDATE intersections SET hour_min =  current_time at time zone 'UTC' at time zone 'US/Pacific' WHERE node_id = "+intersectionID+"&api_key="+cartoDBkey;
         jQuery.post("http://bracket.cartodb.com/api/v2/sql", query, function(data) {areaMapStrategy.refresh({force:true});});
 
 
