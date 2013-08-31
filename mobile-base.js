@@ -189,7 +189,7 @@ var moveCW = function() {
 var updateNotes = function(){
 	jQuery("#intersectionNoteChoices option").each(function() {jQuery(this).prop("selected", false);});
 	for (var j=1; j<intersectionNoteChoiceCount; j++){intersectionNotes[j] = false;};
-	var query = "q=SELECT * from comments where associd = "+intersectionID+ " AND association = 'I' &api_key="+cartoDBkey;
+	var query = "q=SELECT * from comments where associd = "+intersectionID+" AND association == 'I' &api_key=="+cartoDBkey;
 	var noteText;
 	jQuery.getJSON("http://bracket.cartodb.com/api/v2/sql", query, function(notes){
 		for (var i=0; i<notes.total_rows; i++) {
@@ -258,4 +258,3 @@ var updateRampNotes = function(){
 	else {
 		initAreaMap();
 	}; */
-
