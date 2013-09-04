@@ -1,6 +1,7 @@
 // Start here
 var apiKey = "AgQjrXIE9CdYspY6xDjYHhAlbPODFqfQdzmhnT2Ny2l5bpNvHC-0QdJFR-V-eZ6w";  // Katie's Bing API key. Please get your own at http://bingmapsportal.com/ and use that instead.
-var cartoDBkey = "d17d09d66ff153c94bb8d2685a6ffb62d4faeb3a";
+/* var cartoDBkey = "612cfbb8eb5240dc9e3ef988a61c5b0c9b733765"; Scott's Key*/
+var cartoDBkey = "d17d09d66ff153c94bb8d2685a6ffb62d4faeb3a"; //Katie's Key
 var buttonsHeight;
 var i_mapArea;
 
@@ -11,8 +12,8 @@ var wgs = new OpenLayers.Projection("EPSG:4326");
 var sm = new OpenLayers.Projection("EPSG:900913");
 var geoJSONparser = new OpenLayers.Format.GeoJSON({ignoreExtraDims: true});
 
-var intersectionStyleMap = new OpenLayers.StyleMap({pointRadius: 7});
-var intersectionLookup = {"y": {fillColor: "orange", graphicName: "triangle"},"n": {fillColor: "blue"}};
+var intersectionStyleMap = new OpenLayers.StyleMap({pointRadius: 8});
+var intersectionLookup = {"y": {fillColor: "orange", graphicName: "triangle"}, "n": {fillColor: "blue"}};
 intersectionStyleMap.addUniqueValueRules("default", "evaluated", intersectionLookup); //evaluated is attribute of intersections
 
 var rampStyleMap = new OpenLayers.StyleMap({display: "none"});
@@ -31,7 +32,7 @@ var hiLiteMapStrategy;
 var detailProtocol;
 
 var intersectionID;
-var intersectionIDasText;
+var intersectionIDasText // because cartodb comments file is csv and only knows datatype=text;
 var rampID;
 var currentRamp;
 var hiLite;
@@ -44,19 +45,19 @@ var rampNotes = [];
 var fromRampNotes = false;
 
 function setSize() {
-	buttonsHeight = jQuery("div[id='buttons']:visible").height();
-	if (buttonsHeight){
+    buttonsHeight = jQuery("div[id='buttons']:visible").height();
+    if (buttonsHeight) {
 		i_mapArea = jQuery("div[id='i_map']:visible");
 		if (i_mapArea.height() + buttonsHeight !== jQuery(window).height()) {
 			i_mapArea.height(jQuery(window).height() - buttonsHeight);
-		};
+		}
 	}
-    if (window.map && window.map instanceof OpenLayers.Map) {map.updateSize();};
+    if (window.map && window.map instanceof OpenLayers.Map) {map.updateSize();}
 }
 
 /* initialize area map page */
 function initAreaMap() {
-	areaMapStrategy = new OpenLayers.Strategy.Refresh({interval: 60000, force: true})
+	areaMapStrategy = new OpenLayers.Strategy.Refresh({interval: 60000, force: true});
     var intersections = new OpenLayers.Layer.Vector("intersections", {
         projection: wgs,
         strategies: [new OpenLayers.Strategy.BBOX(), areaMapStrategy],
@@ -124,7 +125,7 @@ function initDetailMap() {
 		strategies: [new OpenLayers.Strategy.Fixed(), detailMapStrategy],
 		protocol: new OpenLayers.Protocol.Script({
 			url: "http://bracket.cartodb.com/api/v2/sql",
-			params: {q: "select * from ramps where nodeid = "+intersectionID+ " order by bearing asc, down_ramp asc", format: "geojson"},
+			params: {q: "select * from ramps where nodeid = "+intersectionIDasText+ " order by bearing asc, down_ramp asc", format: "geojson"},
 			format: geoJSONparser,
 			callbackKey: "callback"
 		}),
@@ -191,7 +192,7 @@ var moveCW = function() {
 var updateNotes = function(){
 	jQuery("#intersectionNoteChoices option").each(function() {jQuery(this).prop("selected", false);});
 	for (var j=1; j<intersectionNoteChoiceCount; j++){intersectionNotes[j] = false;};
-	var query = "q=SELECT * FROM comments WHERE associd = 'intersectionIDasText'  AND association ='I' &api_key="+cartoDBkey;
+	var query = "q=SELECT * from comments where associd = '+intersectionIDasText+' AND association = 'I' &api_key="+cartoDBkey;
 	var noteText;
 	jQuery.getJSON("http://bracket.cartodb.com/api/v2/sql", query, function(notes){
 		for (var i=0; i<notes.total_rows; i++) {
@@ -210,7 +211,7 @@ var updateNotes = function(){
 var updateRampNotes = function(){
 	jQuery("#rampNoteChoices option").each(function() {jQuery(this).prop("selected", false);});
 	for (var j=1; j<rampNoteChoiceCount; j++){intersectionNotes[j] = false;};
-	var query = "q=SELECT * from comments where associd = 'rampID' AND association = 'R' &api_key="+cartoDBkey;
+	var query = "q=SELECT * from comments where associd = '+rampID+' AND association = 'R' &api_key="+cartoDBkey;
 	var noteText;
 	jQuery.getJSON("http://bracket.cartodb.com/api/v2/sql", query, function(notes){
 		for (var i=0; i<notes.total_rows; i++) {
